@@ -3,6 +3,7 @@ package com.example.maskdetection.Mediator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.View;
 
 import com.example.maskdetection.GestionMask;
@@ -14,10 +15,12 @@ public class MediatorMask {
     public Bitmap rotatedBitmap;
     MainActivity mainActivity;
     String path;
-    public MediatorMask(Bitmap rotatedBitmap, MainActivity mainActivity, String path) {
+    Uri imageUri = null;
+    public MediatorMask(Bitmap rotatedBitmap, MainActivity mainActivity, Uri uri) {
         this.rotatedBitmap = rotatedBitmap;
         this.mainActivity =  mainActivity;
         this.path = path;
+        this.imageUri = uri;
     }
 
     public void notificar(String evento) {
@@ -36,7 +39,7 @@ public class MediatorMask {
         intent.putExtra("acc1",mask1.acc);
         intent.putExtra("res2",mask2.res);
         intent.putExtra("acc2",mask2.acc);
-        intent.putExtra("path",path);
+        intent.putExtra("imageUri", imageUri.toString());
         mainActivity.startActivity(intent);
 
 

@@ -81,7 +81,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                         getContentResolver(), imageUri);
 
 
-                MediatorMask mediatorMask = new MediatorMask(bitmap,this,currentPhotoPath);
+                MediatorMask mediatorMask = new MediatorMask(bitmap,this, imageUri);
                 mediatorMask.notificar("maskdetect");
             } catch (IOException e) {
                 e.printStackTrace();
