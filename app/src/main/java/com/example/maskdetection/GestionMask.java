@@ -67,13 +67,12 @@ public class GestionMask {
                 // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
                 String jsonData = response.body().string();
                 JSONObject Jobject = null;
-                System.out.println("apk");
+                System.out.println(jsonData);
                 try {
                    Jobject = new JSONObject(jsonData);
 
-                    Mask mask1 = new Mask(Jobject.get("res1").toString(),Jobject.get("acc1").toString());
-                    Mask mask2 = new Mask(Jobject.get("res2").toString(),Jobject.get("acc2").toString());
-                    mediatorMask.setMaskInfo(mask1,mask2);
+
+                    mediatorMask.setMaskInfo(Jobject.get("res").toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

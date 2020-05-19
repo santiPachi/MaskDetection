@@ -33,12 +33,10 @@ public class MediatorMask {
     }
 
 
-    public void setMaskInfo(Mask mask1,Mask mask2) {
+    public void setMaskInfo(String res) {
         Intent intent = new Intent(mainActivity.getApplicationContext(),MaskDetection.class);
-        intent.putExtra("res1",mask1.res);
-        intent.putExtra("acc1",mask1.acc);
-        intent.putExtra("res2",mask2.res);
-        intent.putExtra("acc2",mask2.acc);
+        intent.putExtra("res",res);
+
         intent.putExtra("imageUri", imageUri.toString());
         mainActivity.startActivity(intent);
 
