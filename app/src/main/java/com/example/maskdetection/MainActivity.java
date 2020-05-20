@@ -80,8 +80,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 bitmap = MediaStore.Images.Media.getBitmap(
                         getContentResolver(), imageUri);
 
-
-                MediatorMask mediatorMask = new MediatorMask(bitmap,this, imageUri);
+                int rot = new TratarImagenesGiro().getRotarionrotateIfRequired(getApplicationContext(),bitmap,imageUri);
+                MediatorMask mediatorMask = new MediatorMask(bitmap,this, imageUri,rot);
                 mediatorMask.notificar("maskdetect");
             } catch (IOException e) {
                 e.printStackTrace();

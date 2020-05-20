@@ -12,15 +12,17 @@ import com.example.maskdetection.Mask;
 import com.example.maskdetection.MaskDetection;
 
 public class MediatorMask {
-    public Bitmap rotatedBitmap;
+    public Bitmap bitmap;
     MainActivity mainActivity;
     String path;
     Uri imageUri = null;
-    public MediatorMask(Bitmap rotatedBitmap, MainActivity mainActivity, Uri uri) {
-        this.rotatedBitmap = rotatedBitmap;
+    int rot;
+    public MediatorMask(Bitmap bitmap, MainActivity mainActivity, Uri uri,int rot) {
+        this.bitmap = bitmap;
         this.mainActivity =  mainActivity;
         this.path = path;
         this.imageUri = uri;
+        this.rot = rot;
     }
 
     public void notificar(String evento) {
@@ -28,7 +30,7 @@ public class MediatorMask {
 
             GestionMask gestionMask = new GestionMask(this);
 
-            gestionMask.setImage(rotatedBitmap);
+            gestionMask.setImage(bitmap,rot);
         }
     }
 

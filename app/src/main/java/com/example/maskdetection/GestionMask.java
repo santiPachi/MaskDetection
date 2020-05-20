@@ -30,19 +30,20 @@ public class GestionMask {
     public GestionMask() {
     }
 
-    public void setImage(Bitmap bitmap) {
+    public void setImage(Bitmap bitmap,int rot) {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
 
         Bitmap image = ScaleBitmap.scale(bitmap,256,256);
-        image.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteArray = stream.toByteArray();
 
         RequestBody postBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("image", "androidFlask.jpg", RequestBody.create(MediaType.parse("image/*jpg"), byteArray))
+                .addFormDataPart("rot",String.valueOf(rot))
                 .build();
 
         OkHttpClient client = new OkHttpClient();
@@ -67,9 +68,9 @@ public class GestionMask {
                 // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
                 String jsonData = response.body().string();
                 JSONObject Jobject = null;
-//                System.out.println(jsonData);
+                System.out.println(jsonData);
                 try {
-                    Jobject = new JSONObject(jsonData);
+                   Jobject = new JSONObject(jsonData);
                     String str = Jobject.get("res1").toString()+" "+Jobject.get("res2").toString();
                     mediatorMask.setMaskInfo(str);
                 } catch (JSONException e) {
