@@ -48,7 +48,7 @@ public class GestionMask {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://75.126.27.238:5000/setImage")
+                .url("http://192.168.0.110:5000/setImage")
                 .post(postBody)
                 .build();
 
@@ -69,10 +69,9 @@ public class GestionMask {
                 JSONObject Jobject = null;
                 System.out.println(jsonData);
                 try {
-                   Jobject = new JSONObject(jsonData);
-
-
-                    mediatorMask.setMaskInfo(Jobject.get("res").toString());
+                    Jobject = new JSONObject(jsonData);
+                    String str = Jobject.get("res1").toString()+" "+Jobject.get("res2").toString();
+                    mediatorMask.setMaskInfo(str);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
