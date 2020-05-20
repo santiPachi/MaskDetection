@@ -67,7 +67,7 @@ public class GestionMask {
                 // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
                 String jsonData = response.body().string();
                 JSONObject Jobject = null;
-                System.out.println(jsonData);
+//                System.out.println(jsonData);
                 try {
                     Jobject = new JSONObject(jsonData);
                     String str = Jobject.get("res1").toString()+" "+Jobject.get("res2").toString();
