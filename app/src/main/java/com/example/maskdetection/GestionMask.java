@@ -49,7 +49,7 @@ public class GestionMask {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://192.168.0.110:5000/setImage")
+                .url("http://75.126.27.238:5000/setImage")
                 .post(postBody)
                 .build();
 
