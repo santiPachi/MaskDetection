@@ -17,8 +17,9 @@ public class MaskDetection extends AppCompatActivity {
     public ImageView imgView;
 
     public TextView txRes1;
-
-    Button btReintentar;
+    public Mask mask;
+    Button btBad;
+    Button btOk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +27,11 @@ public class MaskDetection extends AppCompatActivity {
         imgView = findViewById(R.id.img_per);
         txRes1 = findViewById(R.id.tx_res1);
 
-        btReintentar = findViewById(R.id.bt_reintentar);
-        String res = (String)getIntent().getStringExtra("res");
+        btBad = findViewById(R.id.bt_bad);
+        btOk = findViewById(R.id.bt_ok);
+        mask = (Mask)getIntent().getSerializableExtra("mask");
         Uri imageUri = Uri.parse(getIntent().getExtras().getString("imageUri"));
-        txRes1.setText(res);
+        txRes1.setText(mask.res1 +" "+ mask.res2);
 
         Bitmap bitmapGloabal = null;
         try {
@@ -40,7 +42,7 @@ public class MaskDetection extends AppCompatActivity {
         imgView.setImageBitmap(bitmapGloabal);
 
 
-        btReintentar.setOnClickListener(new View.OnClickListener() {
+        btBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -48,5 +50,24 @@ public class MaskDetection extends AppCompatActivity {
             }
 
         });
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmResonse();
+            }
+
+        });
+    }
+
+    private void confirmResonse(){
+
+
+        if (mask.res2.equals(mask.res1) ){
+            GestionMask gestionMask = new GestionMask();
+            gestionMask.valResponse("ok",mask.res1,mask.name);
+        }
+        finish();
+        onBackPressed();
+
     }
 }

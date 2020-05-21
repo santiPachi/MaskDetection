@@ -49,7 +49,7 @@ public class GestionMask {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://75.126.27.238:5000/setImage")
+                .url(Singleton.urlServer+"/setImage")
                 .post(postBody)
                 .build();
 
@@ -57,6 +57,7 @@ public class GestionMask {
             @Override
             public void onFailure(Call call, IOException e) {
                 // Cancel the post on failure.
+                System.out.println(e);
                 call.cancel();
 
                 // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
@@ -71,8 +72,8 @@ public class GestionMask {
                 System.out.println(jsonData);
                 try {
                    Jobject = new JSONObject(jsonData);
-                    String str = Jobject.get("res1").toString()+" "+Jobject.get("res2").toString();
-                    mediatorMask.setMaskInfo(str);
+                    Mask mask = new Mask(Jobject.get("res1").toString(),Jobject.get("res2").toString(),Jobject.get("name").toString());
+                    mediatorMask.setMaskInfo(mask);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -80,6 +81,40 @@ public class GestionMask {
             }
         });
 
+    }
+
+    public void valResponse(String val,String clas,String name){
+        OkHttpClient client = new OkHttpClient();
+        RequestBody postBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("clas",clas)
+                .addFormDataPart("val",String.valueOf(val))
+                .addFormDataPart("imagename",name)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Singleton.urlServer+"/validate")
+                .post(postBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Cancel the post on failure.
+                System.out.println(e);
+                call.cancel();
+
+                // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // In order to access the TextView inside the UI thread, the code is executed inside runOnUiThread()
+
+
+            }
+        });
     }
 
 }

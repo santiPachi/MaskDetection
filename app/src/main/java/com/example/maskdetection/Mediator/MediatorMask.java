@@ -11,6 +11,8 @@ import com.example.maskdetection.MainActivity;
 import com.example.maskdetection.Mask;
 import com.example.maskdetection.MaskDetection;
 
+import java.io.Serializable;
+
 public class MediatorMask {
     public Bitmap bitmap;
     MainActivity mainActivity;
@@ -35,9 +37,9 @@ public class MediatorMask {
     }
 
 
-    public void setMaskInfo(String res) {
+    public void setMaskInfo(Mask mask) {
         Intent intent = new Intent(mainActivity.getApplicationContext(),MaskDetection.class);
-        intent.putExtra("res",res);
+        intent.putExtra("mask", mask);
 
         intent.putExtra("imageUri", imageUri.toString());
         mainActivity.startActivity(intent);
